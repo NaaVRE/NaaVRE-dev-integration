@@ -1,0 +1,7 @@
+name: naavre-dev-integration
+channels:
+  - conda-forge
+dependencies:
+  - kubernetes-helm=3.14.4
+  - minikube=1.31.2
+  - tilt=0.33.5

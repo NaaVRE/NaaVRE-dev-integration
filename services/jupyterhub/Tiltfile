@@ -1,0 +1,13 @@
+load('ext://helm_resource', 'helm_resource')
+
+helm_resource(
+  'jupyterhub',
+  labels=['NaaVRE-jupyter'],
+  chart='https://jupyterhub.github.io/helm-chart/jupyterhub-3.3.7.tgz',
+  flags=[
+    '--values=./helm-values.yaml',
+    ],
+  image_deps=['ghcr.io/naavre/naavre-jupyterlab-dev'],
+  image_keys=[('singleuser.image.name', 'singleuser.image.tag')],
+  links=['https://naavre-dev.minikube.test/naavre-jupyterhub/'],
+  )

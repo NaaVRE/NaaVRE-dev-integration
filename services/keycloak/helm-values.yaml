@@ -1,0 +1,124 @@
+httpRelativePath: '/auth/'
+
+auth:
+  adminUser: admin
+  adminPassword: admin
+
+extraEnvVars:
+  - name: KEYCLOAK_PROXY_ADDRESS_FORWARDING
+    value: "true"
+
+ingress:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
+    nginx.org/server-snippets: |
+      location /auth {
+        proxy_set_header X-Forwarded-For $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+      }
+  enabled: true
+  path: /auth/
+  hostname: naavre-dev.minikube.test
+  tls: true
+
+postgresql:
+  enabled: true
+  auth:
+    postgresPassword: fake_postgres_password
+    password: fake_password
+  primary:
+    podAnnotations:
+      backup.velero.io/backup-volumes: pvc-volume,emptydir-volume
+  readReplicas:
+    podAnnotations:
+      backup.velero.io/backup-volumes: pvc-volume,emptydir-volume
+
+
+keycloakConfigCli:
+  enabled: true
+  configuration:
+    realm-configuration.yaml: |
+      realm: vre
+      enabled: true
+      ssoSessionIdleTimeout: 36000
+      groups:
+        - name: users
+          path: /users
+      users:
+        - username: user
+          enabled: true
+          credentials:
+            - type: password
+              value: user
+              temporary: false
+          groups:
+            - users
+      clientScopes:
+        - id: openid
+          name: openid
+          protocol: openid-connect
+          attributes:
+            include.in.token.scope: "true"
+            display.on.consent.screen: "true"
+      clients:
+        - clientId: minio
+          name: MinIO
+          description: ""
+          baseUrl: ""
+          rootUrl: https://naavre-dev.minikube.test
+          redirectUris:
+            - /*
+          enabled: true
+          publicClient: false
+          clientAuthenticatorType: client-secret
+          secret: fake_openid_client_secret
+          protocol: openid-connect
+          protocolMappers:
+            - name: Groups mapper
+              protocol: openid-connect
+              protocolMapper: oidc-group-membership-mapper
+              consentRequired: false
+              config:
+                full.path: 'false'
+                id.token.claim: 'true'
+                access.token.claim: 'true'
+                claim.name: groups
+                userinfo.token.claim: 'true'
+          defaultClientScopes:
+            - web-origins
+            - acr
+            - openid
+            - profile
+            - roles
+            - email
+        - clientId: naavre
+          name: NaaVRE
+          description: ""
+          baseUrl: ""
+          rootUrl: https://naavre-dev.minikube.test
+          redirectUris:
+            - /*
+          enabled: true
+          publicClient: true
+          clientAuthenticatorType: client-secret
+          secret: fake_openid_client_secret
+          protocol: openid-connect
+          protocolMappers:
+            - name: Groups mapper
+              protocol: openid-connect
+              protocolMapper: oidc-group-membership-mapper
+              consentRequired: false
+              config:
+                full.path: 'false'
+                id.token.claim: 'true'
+                access.token.claim: 'true'
+                claim.name: groups
+                userinfo.token.claim: 'true'
+          defaultClientScopes:
+            - web-origins
+            - acr
+            - openid
+            - profile
+            - roles
+            - email

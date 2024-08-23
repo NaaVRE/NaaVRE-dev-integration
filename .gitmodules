@@ -1,0 +1,3 @@
+[submodule "services/jupyterlab/extensions/NaaVRE-communicator-jupyterlab"]
+	path = services/jupyterlab/extensions/NaaVRE-communicator-jupyterlab
+	url = git@github.com:NaaVRE/NaaVRE-communicator-jupyterlab.git

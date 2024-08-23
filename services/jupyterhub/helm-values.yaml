@@ -1,0 +1,84 @@
+hub:
+  concurrentSpawnLimit: 20
+  consecutiveFailureLimit: 20
+  activeServerLimit: 20
+  namedServerLimitPerUser: 1
+  shutdownOnLogout: true
+  extraEnv:
+    OAUTH_TLS_VERIFY: "0"
+  baseUrl: /naavre-jupyterhub
+  extraConfig:
+    spawnConfig: |
+      from oauthenticator.generic import GenericOAuthenticator
+      class GenericEnvOAuthenticator(GenericOAuthenticator):
+          async def pre_spawn_start(self, user, spawner):
+              auth_state = await user.get_auth_state()
+              if not auth_state:
+                  return
+              spawner.environment['OAUTH_ACCESS_TOKEN'] = auth_state.get('access_token')
+              spawner.environment['OAUTH_REFRESH_TOKEN'] = auth_state.get('refresh_token')
+      c.JupyterHub.authenticator_class = GenericEnvOAuthenticator
+  config:
+    Authenticator:
+      enable_auth_state: true
+    GenericEnvOAuthenticator:
+      client_id: naavre
+      client_secret: fake_openid_client_secret
+      authorize_url: https://naavre-dev.minikube.test/auth/realms/vre/protocol/openid-connect/auth
+      token_url: https://naavre-dev.minikube.test/auth/realms/vre/protocol/openid-connect/token
+      userdata_url: "https://naavre-dev.minikube.test/auth/realms/vre/protocol/openid-connect/userinfo"
+      oauth_callback_url: https://naavre-dev.minikube.test/naavre-jupyterhub/hub/oauth_callback
+      login_service: keycloak
+      username_claim: preferred_username
+      userdata_params:
+        state: state
+      claim_groups_key: groups
+      allowed_groups:
+        - users
+      admin_groups:
+        - admins
+ingress:
+  enabled: true
+  hosts:
+    - naavre-dev.minikube.test
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/add-base-url: "true"
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "600m"
+    nginx.org/client-max-body-size: "600m"
+proxy:
+  service:
+    type: ClusterIP
+prePuller:
+  continuous:
+    enabled: false
+  hook:
+    enabled: false
+singleuser:
+  extraFiles:
+    jupyter_notebook_config.json:
+      mountPath: /etc/jupyter/jupyter_notebook_config.json
+      data:
+        ServerApp:
+          iopub_data_rate_limit: 1.0e10
+          iopub_msg_rate_limitFloat: 3000
+  defaultUrl: "/lab"
+  extraEnv:
+    API_ENDPOINT: http://naavre-dev.minikube.test/vre-api-test
+    NAAVRE_API_TOKEN: token_vreapi
+    CELL_GITHUB: "https://github.com/USER/REPO"
+    CELL_GITHUB_TOKEN: ""
+    JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
+    MODULE_MAPPING_URL: https://raw.githubusercontent.com/QCDIS/NaaVRE-conf/main/module_mapping.json
+    PROJ_LIB: /venv/share/proj
+    SEARCH_API_ENDPOINT: ""
+    SEARCH_API_TOKEN: ""
+    VLAB_SLUG: n-a-a-vre
+    ARGO_WF_SPEC_SERVICEACCOUNT: executor
+    VRE_API_VERIFY_SSL: 'false'
+    NAAVRE_ALLOWED_DOMAINS: 'naavre-dev.minikube.test'
+  image:
+    name: ghcr.io/naavre/naavre-jupyterlab-dev
+    tag: latest
+    pullPolicy: Never
