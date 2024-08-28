@@ -5,5 +5,5 @@
 	path = services/jupyterlab/extensions/NaaVRE-containerizer-jupyterlab
 	url = git@github.com:NaaVRE/NaaVRE-containerizer-jupyterlab.git
 [submodule "services/NaaVRE-containerizer-service"]
-	path = services/NaaVRE-containerizer-service
+	path = services/NaaVRE-containerizer-service/NaaVRE-containerizer-service
 	url = git@github.com:NaaVRE/NaaVRE-containerizer-service.git
