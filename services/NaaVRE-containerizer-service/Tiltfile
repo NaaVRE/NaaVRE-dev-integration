@@ -1,0 +1,32 @@
+k8s_yaml(helm(
+  './NaaVRE-containerizer-service/helm/naavre-containerizer-service/',
+  name='naavre-containerizer-service',
+  values=[
+    './helm-values.yaml',
+    ],
+  ))
+
+k8s_resource(
+  'naavre-containerizer-service',
+  labels=['NaaVRE-services'],
+  links=[
+    'https://naavre-dev.minikube.test/NaaVRE-containerizer-service/docs/',
+    ],
+  resource_deps=['keycloak'],
+  )
+
+custom_build(
+  'ghcr.io/naavre/naavre-containerizer-service',
+  'docker buildx build ./NaaVRE-containerizer-service -f ./NaaVRE-containerizer-service/docker/dev.Dockerfile -t $EXPECTED_REF --push',
+  [
+    './NaaVRE-containerizer-service/app/',
+    './NaaVRE-containerizer-service/requirements.txt',
+    ],
+  skips_local_docker=True,
+  disable_push=True,
+  live_update=[
+    sync('./NaaVRE-containerizer-service/app/', '/code/app/'),
+    sync('./NaaVRE-containerizer-service/requirements.txt', '/code/requirements.txt'),
+    run('pip install --no-cache-dir --upgrade -r /code/requirements.txt', trigger='./NaaVRE-containerizer-service/requirements.txt'),
+    ]
+  )

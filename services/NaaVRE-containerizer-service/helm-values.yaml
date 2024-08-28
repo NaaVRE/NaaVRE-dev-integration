@@ -1,0 +1,16 @@
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  hosts:
+    - host: naavre-dev.minikube.test
+      paths:
+        - path: /NaaVRE-containerizer-service(/|$)(.*)
+          pathType: ImplementationSpecific
+
+conf:
+  rootPath: /NaaVRE-containerizer-service
+  oidcConfigurationUrl: "https://naavre-dev.minikube.test/auth/realms/vre/.well-known/openid-configuration"
+  verifySSL: "false"
