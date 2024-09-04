@@ -2,11 +2,11 @@ naavre_dev_sync_steps = [
   sync('./extensions/', '/app/dev/extensions/'),
   ]
 naavre_dev_run_steps = [
-  run('cd "/app/dev/extensions/' + package + '" && jlpm build',
+  run('cd "/app/dev/extensions/src' + package + '" && jlpm build',
       trigger=['./extensions/' + package + '/'])
   for package in [
-    'demo-auth',
-    'naavre-communicator',
+    'NaaVRE-communicator-jupyterlab',
+    'NaaVRE-containerizer-jupyterlab',
     ]
   ]
 
