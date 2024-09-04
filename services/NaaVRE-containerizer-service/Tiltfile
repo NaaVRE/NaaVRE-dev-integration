@@ -19,6 +19,7 @@ custom_build(
   'ghcr.io/naavre/naavre-containerizer-service',
   'docker buildx build ./NaaVRE-containerizer-service -f ./NaaVRE-containerizer-service/docker/dev.Dockerfile -t $EXPECTED_REF --push',
   [
+    './NaaVRE-containerizer-service/docker/dev.Dockerfile',
     './NaaVRE-containerizer-service/app/',
     './NaaVRE-containerizer-service/requirements.txt',
     ],
