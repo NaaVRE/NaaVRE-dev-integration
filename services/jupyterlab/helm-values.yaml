@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/naavre/naavre-jupyterlab-dev
-  pullPolicy: Never
+  pullPolicy: IfNotPresent
 
 ingress:
   enabled: true

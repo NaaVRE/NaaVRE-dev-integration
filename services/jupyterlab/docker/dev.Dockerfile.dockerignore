@@ -1,0 +1,10 @@
+**/.github
+**/.git
+**/.idea
+
+**/.yarn/*
+!**/.yarn/patches/
+
+**/lib
+**/node_modules
+**/venv

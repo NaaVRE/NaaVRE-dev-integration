@@ -1,14 +1,21 @@
-naavre_dev_sync_steps = [
-  sync('./extensions/', '/app/dev/extensions/'),
-  ]
-naavre_dev_run_steps = [
-  run('cd "/app/dev/extensions/src' + package + '" && jlpm build',
-      trigger=['./extensions/' + package + '/'])
-  for package in [
+naavre_dev_sync_steps = []
+naavre_dev_run_steps = []
+for package in [
     'NaaVRE-communicator-jupyterlab',
     'NaaVRE-containerizer-jupyterlab',
+    ]:
+  naavre_dev_sync_steps += [
+    sync('./extensions/' + package + '/src/', '/app/dev/extensions/' + package + '/src/'),
+    sync('./extensions/' + package + '/schema/', '/app/dev/extensions/' + package + '/schema/'),
+    sync('./extensions/' + package + '/style/', '/app/dev/extensions/' + package + '/style/'),
+    sync('./extensions/' + package + '/' + package, '/app/dev/extensions/' + package + '/' + package),
     ]
-  ]
+  naavre_dev_run_steps += [
+    run('cd "/app/dev/extensions/' + package + '" && jlpm build', trigger=[
+      './extensions/' + package + '/src/',
+      './extensions/' + package + '/schema/',
+      ]),
+    ]
 
 custom_build(
   'ghcr.io/naavre/naavre-jupyterlab-dev',

@@ -81,4 +81,4 @@ singleuser:
   image:
     name: ghcr.io/naavre/naavre-jupyterlab-dev
     tag: latest
-    pullPolicy: Never
+    pullPolicy: IfNotPresent
