@@ -10,14 +10,14 @@ k8s_resource(
   'naavre-containerizer-service',
   labels=['NaaVRE-services'],
   links=[
-    'https://naavre-dev.minikube.test/NaaVRE-containerizer-service/docs/',
+    'https://naavre-dev.minikube.test/NaaVRE-containerizer-service/docs',
     ],
   resource_deps=['keycloak'],
   )
 
 custom_build(
   'ghcr.io/naavre/naavre-containerizer-service',
-  'docker buildx build ./NaaVRE-containerizer-service -f ./NaaVRE-containerizer-service/docker/dev.Dockerfile -t $EXPECTED_REF --push',
+  'docker buildx build ./NaaVRE-containerizer-service -f ./NaaVRE-containerizer-service/docker/dev.Dockerfile -t $EXPECTED_REF',
   [
     './NaaVRE-containerizer-service/docker/dev.Dockerfile',
     './NaaVRE-containerizer-service/app/',
