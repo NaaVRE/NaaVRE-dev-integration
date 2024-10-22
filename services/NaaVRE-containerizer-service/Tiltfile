@@ -1,3 +1,5 @@
+load('../../helpers.Tiltfile', 'get_custom_build_command')
+
 k8s_yaml(helm(
   './NaaVRE-containerizer-service/helm/naavre-containerizer-service/',
   name='naavre-containerizer-service',
@@ -17,7 +19,7 @@ k8s_resource(
 
 custom_build(
   'ghcr.io/naavre/naavre-containerizer-service',
-  'docker buildx build ./NaaVRE-containerizer-service -f ./NaaVRE-containerizer-service/docker/dev.Dockerfile -t $EXPECTED_REF',
+  get_custom_build_command(path='./NaaVRE-containerizer-service', file='./NaaVRE-containerizer-service/docker/dev.Dockerfile'),
   [
     './NaaVRE-containerizer-service/docker/dev.Dockerfile',
     './NaaVRE-containerizer-service/app/',

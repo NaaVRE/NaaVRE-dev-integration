@@ -1,3 +1,5 @@
+load('../../helpers.Tiltfile', 'get_custom_build_command')
+
 naavre_dev_sync_steps = []
 naavre_dev_run_steps = []
 for package in [
@@ -19,7 +21,7 @@ for package in [
 
 custom_build(
   'ghcr.io/naavre/naavre-jupyterlab-dev',
-  'docker buildx build . -f ./docker/dev.Dockerfile -t $EXPECTED_REF --push',
+  get_custom_build_command(path='.', file='./docker/dev.Dockerfile'),
   [
     './docker/dev.Dockerfile',
     './extensions',
