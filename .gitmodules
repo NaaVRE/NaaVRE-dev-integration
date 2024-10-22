@@ -7,3 +7,6 @@
 [submodule "services/NaaVRE-containerizer-service"]
 	path = services/NaaVRE-containerizer-service/NaaVRE-containerizer-service
 	url = git@github.com:NaaVRE/NaaVRE-containerizer-service.git
+[submodule "services/NaaVRE-catalogue-service/NaaVRE-catalogue-service"]
+	path = services/NaaVRE-catalogue-service/NaaVRE-catalogue-service
+	url = git@github.com:NaaVRE/NaaVRE-catalogue-service.git

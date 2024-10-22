@@ -1,0 +1,33 @@
+k8s_yaml(helm(
+  './NaaVRE-catalogue-service/helm/naavre-catalogue-service/',
+  name='naavre-catalogue-service',
+  values=[
+    './helm-values.yaml',
+    ],
+  ))
+
+k8s_resource(
+  'naavre-catalogue-service',
+  labels=['NaaVRE-services'],
+  links=[
+    'https://naavre-dev.minikube.test/NaaVRE-catalogue-service/docs/',
+    ],
+  resource_deps=['keycloak'],
+  )
+
+custom_build(
+  'ghcr.io/naavre/naavre-catalogue-service',
+  'docker buildx build ./NaaVRE-catalogue-service -f ./NaaVRE-catalogue-service/docker/Dockerfile -t $EXPECTED_REF --push',
+  [
+    './NaaVRE-catalogue-service/docker/Dockerfile',
+    './NaaVRE-catalogue-service/app/',
+    './NaaVRE-catalogue-service/requirements.txt',
+    ],
+  skips_local_docker=True,
+  disable_push=True,
+  live_update=[
+    sync('./NaaVRE-catalogue-service/app/', '/code/app/'),
+    sync('./NaaVRE-catalogue-service/requirements.txt', '/code/requirements.txt'),
+    run('pip install --no-cache-dir --upgrade -r /code/requirements.txt', trigger='./NaaVRE-catalogue-service/requirements.txt'),
+    ]
+  )
