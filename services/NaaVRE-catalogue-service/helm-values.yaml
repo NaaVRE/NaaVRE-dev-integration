@@ -11,8 +11,8 @@ conf:
   base_path: /NaaVRE-catalogue-service
   oidc_configuration_url: https://naavre-dev.minikube.test/auth/realms/vre/.well-known/openid-configuration
   verify_ssl: "false"
+  dev_mode: "true"
   django:
     secret_key: fake-secret-key
     superuser_username: admin
     superuser_password: admin
-    settings_module: "app.settings.production"

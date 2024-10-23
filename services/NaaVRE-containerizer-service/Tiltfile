@@ -10,6 +10,7 @@ k8s_yaml(helm(
 
 k8s_resource(
   'naavre-containerizer-service',
+  new_name='containerizer',
   labels=['NaaVRE-services'],
   links=[
     'https://naavre-dev.minikube.test/NaaVRE-containerizer-service/docs',

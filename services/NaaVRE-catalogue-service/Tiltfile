@@ -10,11 +10,18 @@ k8s_yaml(helm(
 
 k8s_resource(
   'naavre-catalogue-service',
+  new_name='catalogue',
   labels=['NaaVRE-services'],
   links=[
-    'https://naavre-dev.minikube.test/NaaVRE-catalogue-service/docs/',
+    'https://naavre-dev.minikube.test/NaaVRE-catalogue-service/',
+    'https://naavre-dev.minikube.test/NaaVRE-catalogue-service/admin/',
     ],
-  resource_deps=['keycloak'],
+  )
+
+k8s_resource(
+  'naavre-catalogue-service-postgresql',
+  new_name='catalogue-db',
+  labels=['NaaVRE-services'],
   )
 
 custom_build(
