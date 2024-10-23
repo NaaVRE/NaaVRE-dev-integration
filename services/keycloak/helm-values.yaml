@@ -54,6 +54,22 @@ keycloakConfigCli:
               temporary: false
           groups:
             - users
+        - username: test-user-2
+          enabled: true
+          credentials:
+            - type: password
+              value: test-user-2-password
+              temporary: false
+          groups:
+            - users
+        - username: test-user-3
+          enabled: true
+          credentials:
+            - type: password
+              value: test-user-3-password
+              temporary: false
+          groups:
+            - users
       clientScopes:
         - id: openid
           name: openid
