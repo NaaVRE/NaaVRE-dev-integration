@@ -1,5 +1,5 @@
 {
-  "NaaVRE-containerizer-jupyterlab:plugin": {
+  "@naavre/containerizer-jupyterlab:plugin": {
     "containerizerServiceUrl": "http://naavre-dev.minikube.test/NaaVRE-containerizer-service"
   }
 }

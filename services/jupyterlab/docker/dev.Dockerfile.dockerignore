@@ -8,3 +8,9 @@
 **/lib
 **/node_modules
 **/venv
+
+**/.eslintcache
+**/.stylelintcache
+**/tsconfig.tsbuildinfo
+
+**/labextension/
