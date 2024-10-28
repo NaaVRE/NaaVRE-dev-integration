@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/naavre/naavre-jupyterlab-dev
+  repository: ghcr.io/naavre/naavre-jupyterlab
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
