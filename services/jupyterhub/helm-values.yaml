@@ -79,6 +79,6 @@ singleuser:
     VRE_API_VERIFY_SSL: 'false'
     NAAVRE_ALLOWED_DOMAINS: 'naavre-dev.minikube.test'
   image:
-    name: ghcr.io/naavre/naavre-jupyterlab-dev
+    name: ghcr.io/naavre/naavre-jupyterlab
     tag: latest
     pullPolicy: IfNotPresent

@@ -41,8 +41,6 @@ spec:
             - jupyter
             - lab
           args:
-            - "--watch"
-            - "--autoreload"
             - "--ip=0.0.0.0"
             - "--NotebookApp.base_url={{ .Values.singleuser.baseUrl }}"
             - "--NotebookApp.token=''"
