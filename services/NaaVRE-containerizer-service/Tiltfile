@@ -5,6 +5,7 @@ k8s_yaml(helm(
   name='naavre-containerizer-service',
   values=[
     './helm-values.yaml',
+    './helm-values-local.yaml',
     ],
   ))
 

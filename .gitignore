@@ -1,3 +1,5 @@
 .idea/
 
 .cache_ggshield
+
+**/helm-values-local.yaml

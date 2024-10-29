@@ -18,9 +18,9 @@ env:
   DEBUG: "true"
   OIDC_CONFIGURATION_URL: "https://naavre-dev.minikube.test/auth/realms/vre/.well-known/openid-configuration"
   VERIFY_SSL: "false"
-
-
-
+  MODULE_MAPPING_URL: "https://raw.githubusercontent.com/QCDIS/NaaVRE-conf/main/module_mapping.json"
+  CELL_GITHUB: "<set in ./helm-values-local.yaml>"
+  CELL_GITHUB_TOKEN: "<set in ./helm-values-local.yaml>"
 
 livenessProbe:
   httpGet:
