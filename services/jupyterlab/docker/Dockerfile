@@ -25,9 +25,12 @@ RUN jlpm
 
 
 # Install extensions into runtime environment
-FROM base as runtime
+FROM base AS runtime
 
 WORKDIR /app/
+RUN mkdir -p \
+    ./extensions/NaaVRE-communicator-jupyterlab/ \
+    ./extensions/NaaVRE-containerizer-jupyterlab/
 
 # Copy extensions python dependencies
 COPY --from=deps-py /opt/conda/ /opt/conda/
@@ -37,8 +40,9 @@ COPY --from=deps-js-communicator /deps/ ./extensions/NaaVRE-communicator-jupyter
 COPY --from=deps-js-containerizer /deps/ ./extensions/NaaVRE-containerizer-jupyterlab/
 
 # Install extensions
-COPY --chown=jovyan ./extensions/ ./extensions/
+COPY --chown=jovyan ./extensions/NaaVRE-communicator-jupyterlab/ ./extensions/NaaVRE-communicator-jupyterlab/
 RUN pip install ./extensions/NaaVRE-communicator-jupyterlab/
+COPY --chown=jovyan ./extensions/NaaVRE-containerizer-jupyterlab/ ./extensions/NaaVRE-containerizer-jupyterlab/
 RUN pip install ./extensions/NaaVRE-containerizer-jupyterlab/
 
 # Copy configuration
