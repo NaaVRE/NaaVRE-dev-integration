@@ -1,5 +1,7 @@
 {
   "@naavre/containerizer-jupyterlab:plugin": {
-    "containerizerServiceUrl": "http://naavre-dev.minikube.test/NaaVRE-containerizer-service"
+    "virtualLab": "test-virtual-lab-1",
+    "containerizerServiceUrl": "http://naavre-dev.minikube.test/NaaVRE-containerizer-service",
+    "catalogueServiceUrl": "http://naavre-dev.minikube.test/NaaVRE-catalogue-service"
   }
 }
