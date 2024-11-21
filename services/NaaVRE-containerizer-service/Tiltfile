@@ -21,9 +21,9 @@ k8s_resource(
 
 custom_build(
   'ghcr.io/naavre/naavre-containerizer-service',
-  get_custom_build_command(path='./NaaVRE-containerizer-service', file='./NaaVRE-containerizer-service/docker/dev.Dockerfile'),
+  get_custom_build_command(path='./NaaVRE-containerizer-service', file='./NaaVRE-containerizer-service/docker/Dockerfile'),
   [
-    './NaaVRE-containerizer-service/docker/dev.Dockerfile',
+    './NaaVRE-containerizer-service/docker/Dockerfile',
     './NaaVRE-containerizer-service/app/',
     './NaaVRE-containerizer-service/requirements.txt',
     ],
