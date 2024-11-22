@@ -1,5 +1,5 @@
 FROM quay.io/jupyter/minimal-notebook:lab-4.2.5 AS base
-RUN conda install -y -c conda-forge nodejs
+RUN conda install -y -c conda-forge nodejs r-irkernel
 
 # Install python dependencies for all extensions
 FROM base AS deps-py
