@@ -3,5 +3,10 @@
     "virtualLab": "test-virtual-lab-1",
     "containerizerServiceUrl": "http://naavre-dev.minikube.test/NaaVRE-containerizer-service",
     "catalogueServiceUrl": "http://naavre-dev.minikube.test/NaaVRE-catalogue-service"
+  },
+  "@naavre/workflow-jupyterlab:plugin": {
+    "virtualLab": "test-virtual-lab-1",
+    "workflowServiceUrl": "http://naavre-dev.minikube.test/NaaVRE-workflow-service",
+    "catalogueServiceUrl": "http://naavre-dev.minikube.test/NaaVRE-catalogue-service"
   }
 }
