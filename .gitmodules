@@ -10,3 +10,6 @@
 [submodule "services/NaaVRE-catalogue-service/NaaVRE-catalogue-service"]
 	path = services/NaaVRE-catalogue-service/NaaVRE-catalogue-service
 	url = git@github.com:NaaVRE/NaaVRE-catalogue-service.git
+[submodule "services/jupyterlab/extensions/NaaVRE-workflow-jupyterlab"]
+	path = services/jupyterlab/extensions/NaaVRE-workflow-jupyterlab
+	url = git@github.com:NaaVRE/NaaVRE-workflow-jupyterlab.git
