@@ -13,3 +13,6 @@
 [submodule "services/jupyterlab/extensions/NaaVRE-workflow-jupyterlab"]
 	path = services/jupyterlab/extensions/NaaVRE-workflow-jupyterlab
 	url = git@github.com:NaaVRE/NaaVRE-workflow-jupyterlab.git
+[submodule "services/NaaVRE-workflow-service/NaaVRE-workflow-service"]
+	path = services/NaaVRE-workflow-service/NaaVRE-workflow-service
+	url = git@github.com:NaaVRE/NaaVRE-workflow-service.git
