@@ -12,15 +12,26 @@ ingress:
 
 conf:
   rootPath: /NaaVRE-containerizer-service
+  virtual_labs_configuration:
+    rawJson: |
+      {
+        "vl_configurations": [
+          {
+            "name": "test-virtual-lab-1",
+            "base_image_tags_url": "https://github.com/QCDIS/NaaVRE-flavors/releases/latest/download/base_image_tags.json",
+            "module_mapping_url": "https://raw.githubusercontent.com/QCDIS/NaaVRE-conf/main/module_mapping.json",
+            "cell_github_url": "<set in ./helm-values-local.yaml>",
+            "cell_github_token": "<set in ./helm-values-local.yaml>",
+            "registry_url": "<set in ./helm-values-local.yaml>"
+          }
+        ]
+      }
 
 env:
-  BASE_IMAGE_TAGS_URL: "https://github.com/QCDIS/NaaVRE-flavors/releases/latest/download/base_image_tags.json"
   DEBUG: "true"
-  OIDC_CONFIGURATION_URL: "https://naavre-dev.minikube.test/auth/realms/vre/.well-known/openid-configuration"
   VERIFY_SSL: "false"
-  MODULE_MAPPING_URL: "https://raw.githubusercontent.com/QCDIS/NaaVRE-conf/main/module_mapping.json"
-  CELL_GITHUB: "<set in ./helm-values-local.yaml>"
-  CELL_GITHUB_TOKEN: "<set in ./helm-values-local.yaml>"
+  OIDC_CONFIGURATION_URL: "https://naavre-dev.minikube.test/auth/realms/vre/.well-known/openid-configuration"
+  CONFIG_FILE_URL: "/configuration.json"
 
 livenessProbe:
   httpGet:
