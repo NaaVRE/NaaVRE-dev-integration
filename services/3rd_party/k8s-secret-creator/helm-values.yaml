@@ -1,0 +1,11 @@
+auth:
+  api_token: 'token_ksc'
+
+ingress:
+  enabled: true
+  className: "nginx"
+  hosts:
+    - host: naavre-dev.minikube.test
+      paths:
+        - path: /k8s-secret-creator($|/)
+          pathType: ImplementationSpecific

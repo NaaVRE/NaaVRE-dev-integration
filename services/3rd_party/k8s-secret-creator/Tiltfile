@@ -1,0 +1,15 @@
+load('ext://helm_remote', 'helm_remote')
+
+helm_remote(
+    'k8s-secret-creator',
+    repo_name='oci://ghcr.io/qcdis/charts',
+    values=['./helm-values.yaml'],
+)
+
+k8s_resource(
+  'k8s-secret-creator',
+  labels=['3rd-party'],
+  links=[
+    'https://naavre-dev.minikube.test/k8s-secret-creator/1.0.0/ui/',
+    ],
+  )
