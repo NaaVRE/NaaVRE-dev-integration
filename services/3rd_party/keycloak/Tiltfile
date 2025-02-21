@@ -12,14 +12,16 @@ helm_remote(
 
 k8s_resource(
   'keycloak',
-  labels=['Keycloak'],
+  labels=['3rd-party'],
   links=['https://naavre-dev.minikube.test/auth/'],
   )
 k8s_resource(
   'keycloak-postgresql',
-  labels=['Keycloak'],
+  new_name='keycloak-db',
+  labels=['3rd-party'],
   )
 k8s_resource(
   'keycloak-keycloak-config-cli',
-  labels=['Keycloak'],
+  new_name='keycloak-config',
+  labels=['3rd-party'],
   )
