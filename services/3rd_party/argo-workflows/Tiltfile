@@ -1,0 +1,28 @@
+load('ext://helm_remote', 'helm_remote')
+
+k8s_yaml('./k8s-rbac-executor.yaml')
+k8s_yaml('./k8s-rbac-vre-api.yaml')
+k8s_yaml('./k8s-secret-sso.yaml')
+helm_remote(
+  'argo-workflows',
+  repo_name='argo',
+  repo_url='https://argoproj.github.io/argo-helm',
+  version='0.33.1',
+  values=[
+    './helm-values.yaml',
+    ]
+  )
+
+k8s_resource(
+  'argo-workflows-server',
+  new_name='argo-server',
+  labels=['3rd-party'],
+  links=['https://naavre-dev.minikube.test/argowf/'],
+  resource_deps=['keycloak'],
+  )
+k8s_resource(
+  'argo-workflows-workflow-controller',
+  new_name='argo-wf-controller',
+  labels=['3rd-party'],
+  resource_deps=['keycloak'],
+  )

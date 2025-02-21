@@ -1,0 +1,30 @@
+singleNamespace: true
+server:
+  extraArgs:
+    - --auth-mode=sso
+    - --auth-mode=client
+  enabled: true
+  baseHref: /argowf/
+  serviceType: ClusterIP
+  sso:
+    enabled: true
+    issuer: https://naavre-dev.minikube.test/auth/realms/vre
+    clientId:
+      name: argo-sso
+      key: client-id
+    clientSecret:
+      name: argo-sso
+      key: client-secret
+    redirectUrl: https://naavre-dev.minikube.test/argowf/oauth2/callback
+    rbac:
+      enabled: false
+    insecureSkipVerify: true
+  ingress:
+    enabled: true
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
+    hosts:
+      - naavre-dev.minikube.test
+    paths:
+      - /argowf(/|$)(.*)
+    pathType: ImplementationSpecific
