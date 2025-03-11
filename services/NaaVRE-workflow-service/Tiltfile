@@ -1,0 +1,36 @@
+load('../../helpers.Tiltfile', 'get_custom_build_command')
+
+k8s_yaml(helm(
+  './NaaVRE-workflow-service/helm/naavre-workflow-service/',
+  name='naavre-workflow-service',
+  values=[
+    './helm-values.yaml',
+    ],
+  ))
+
+k8s_resource(
+  'naavre-workflow-service',
+  new_name='workflow',
+  labels=['NaaVRE-services'],
+  links=[
+    'https://naavre-dev.minikube.test/NaaVRE-workflow-service/docs',
+    ],
+  resource_deps=['keycloak'],
+  )
+
+custom_build(
+  'ghcr.io/naavre/naavre-workflow-service',
+  get_custom_build_command(path='./NaaVRE-workflow-service', file='./NaaVRE-workflow-service/docker/Dockerfile'),
+  [
+    './NaaVRE-workflow-service/docker/Dockerfile',
+    './NaaVRE-workflow-service/app/',
+    './NaaVRE-workflow-service/requirements.txt',
+    ],
+  skips_local_docker=True,
+  disable_push=True,
+  live_update=[
+    sync('./NaaVRE-workflow-service/app/', '/code/app/'),
+    sync('./NaaVRE-workflow-service/requirements.txt', '/code/requirements.txt'),
+    run('pip install --no-cache-dir --upgrade -r /code/requirements.txt', trigger='./NaaVRE-workflow-service/requirements.txt'),
+    ]
+  )

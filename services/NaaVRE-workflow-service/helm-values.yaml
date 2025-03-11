@@ -1,0 +1,47 @@
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  hosts:
+    - host: naavre-dev.minikube.test
+      paths:
+        - path: /NaaVRE-workflow-service(/|$)(.*)
+          pathType: ImplementationSpecific
+
+conf:
+  rootPath: /NaaVRE-workflow-service
+  virtual_labs_configuration:
+    rawJson: |
+      {
+        "vl_configurations": [
+          {
+            "name": "test-virtual-lab-1",
+            "wf_engine_config": {
+              "name": "argo",
+              "api_endpoint": "https://naavre-dev.minikube.test/argowf/",
+              "access_token": "{output of `kubectl get secret vre-api.service-account-token -o=jsonpath='{.data.token}' | base64 --decode`}",
+              "service_account": "executor",
+              "namespace": "default",
+              "workdir_storage_size": "1Gi"
+            }
+          }
+        ]
+      }
+
+env:
+  VERIFY_SSL: "false"
+  OIDC_CONFIGURATION_URL: "https://naavre-dev.minikube.test/auth/realms/vre/.well-known/openid-configuration"
+  CONFIG_FILE_URL: "/configuration.json"
+  SECRETS_CREATOR_API_ENDPOINT: "https://naavre-dev.minikube.test/k8s-secret-creator/1.0.0/"
+  SECRETS_CREATOR_API_TOKEN: "token_ksc"
+
+livenessProbe:
+  httpGet:
+    path: /NaaVRE-workflow-service/docs
+    port: http
+readinessProbe:
+  httpGet:
+    path: /NaaVRE-workflow-service/docs
+    port: http

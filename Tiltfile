@@ -10,3 +10,4 @@ include('services/jupyterlab/image.Tiltfile')
 
 include('services/NaaVRE-containerizer-service/Tiltfile')
 include('services/NaaVRE-catalogue-service/Tiltfile')
+include('services/NaaVRE-workflow-service/Tiltfile')
