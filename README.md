@@ -29,6 +29,37 @@ helm dependency build services/NaaVRE-catalogue-service/NaaVRE-catalogue-service
 tilt up
 ```
 
+### Connecting the workflow-service to Argo
+
+To connect the workflow-service to Argo workflows:
+
+- Retrieve the argo token by running
+  ```shell
+  kubectl get secret vre-api.service-account-token -o=jsonpath='{.data.token}' | base64 --decode
+  ```
+- Create a file `./services/NaaVRE-workflow-service/helm-values-local.yaml` with the following content (replace `TOKEN` with the output of the above command):
+  ```yaml
+  conf:
+    virtual_labs_configuration:
+      rawJson: |
+        {
+          "vl_configurations": [
+            {
+              "name": "test-virtual-lab-1",
+              "wf_engine_config": {
+                "name": "argo",
+                "api_endpoint": "https://naavre-dev.minikube.test/argowf/",
+                "access_token": "TOKEN",
+                "service_account": "executor",
+                "namespace": "default",
+                "workdir_storage_size": "1Gi"
+              }
+            }
+          ]
+        }
+  ```
+- Reload the `(Tiltfile)` resource in Tilt.
+
 ## Running Jupyter lab locally with all NaaVRE extensions
 
 It is sometimes useful to run a standalone development version of Jupyter Lab
