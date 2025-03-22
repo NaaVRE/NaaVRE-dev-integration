@@ -82,3 +82,34 @@ singleuser:
     name: ghcr.io/naavre/naavre-jupyterlab
     tag: latest
     pullPolicy: IfNotPresent
+  extraContainers:
+    - name: quota-enforcer
+      image: busybox
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          rm -f /home/jovyan/.used_space /home/jovyan/quota_exceeded.log
+          while true; do
+              du -s /home/jovyan > /home/jovyan/.used_space
+              sed -i "s|/home/jovyan||g" /home/jovyan/.used_space
+              used=$(cat /home/jovyan/.used_space)
+              limit=$((3 * 1024 * 1024))  # 3 GiB in KB
+              if [ "$used" -gt "$limit" ]; then
+                  # Add date and the message to the log file
+                  echo "$(date) ERROR: Storage quota exceeded! used: $used limit: $limit  Please delete some files. Locking /home/jovyan" >> /home/jovyan/quota_exceeded.log
+                  chmod a-w /home/jovyan  # Lock home directory to prevent writing
+                  # Every 13:00, unlock the home directory for 30 minutes
+                  while [ "$(date +%H%M)" == "1300" ]; do
+                      chmod a+w /home/jovyan 
+                      echo "$(date) unlocking /home/jovyan for 30 minutes" >> /home/jovyan/quota_exceeded.log
+                      sleep 1800
+                  done
+              else
+                  chmod a+w /home/jovyan 
+                  echo "$(date) Quota not exceeded. Unlocking /home/jovyan" >> /home/jovyan/quota_exceeded.log
+              fi
+              sleep 60
+          done
+      volumeMounts:
+        - name: volume-user
+          mountPath: /home/jovyan
