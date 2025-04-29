@@ -150,6 +150,7 @@ To connect the workflow-service to Argo workflows:
 It is sometimes useful to run a standalone development version of Jupyter Lab
 with all NaaVRE extensions installed and configured to connect to the other
 services running in Tilt.
+If you do not need to do iterative development of the Jupyter Lab extensions, you can skip this step.
 
 ### Initial setup
 
