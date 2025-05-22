@@ -18,6 +18,7 @@ hub:
               spawner.environment['OAUTH_ACCESS_TOKEN'] = auth_state.get('access_token')
               spawner.environment['OAUTH_REFRESH_TOKEN'] = auth_state.get('refresh_token')
       c.JupyterHub.authenticator_class = GenericEnvOAuthenticator
+      c.JupyterHub.spawner_class = 'datamountspawner.KubeSpawner'
   config:
     Authenticator:
       enable_auth_state: true
@@ -37,6 +38,13 @@ hub:
         - users
       admin_groups:
         - admins
+  args:
+    - -c
+    - >-
+      pip install jupyterhub-datamountspawner &&
+      jupyterhub -f /usr/local/etc/jupyterhub/jupyterhub_config.py
+  command:
+    - /bin/bash
 ingress:
   enabled: true
   hosts:
