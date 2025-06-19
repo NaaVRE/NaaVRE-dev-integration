@@ -1,5 +1,8 @@
 load('ext://helm_resource', 'helm_resource')
 
+load('ext://namespace', 'namespace_create', 'namespace_inject')
+namespace_create('my-namespace')
+
 helm_resource(
   'jupyterhub',
   labels=['NaaVRE-jupyter'],
