@@ -75,6 +75,7 @@ singleuser:
     extraVolumeMounts:
       - name: naa-vre-public
         mountPath: /home/jovyan/naa-vre-public
+        readOnly: true
       - name: naa-vre-user-data
         mountPath: /home/jovyan/naa-vre-user-data/
         subPath: '{username}'

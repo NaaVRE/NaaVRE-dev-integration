@@ -6,6 +6,7 @@ namespace_create('my-namespace')
 helm_resource(
   'jupyterhub',
   labels=['NaaVRE-jupyter'],
+  namespace='my-namespace',
   chart='https://jupyterhub.github.io/helm-chart/jupyterhub-3.3.7.tgz',
   flags=[
     '--values=./helm-values.yaml',
