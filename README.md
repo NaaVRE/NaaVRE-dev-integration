@@ -18,7 +18,7 @@ OS support:
 To integrate the different components of NaaVRE, we use Git submodules:
 
 ```shell
-git clone --recurse-submodules git@github.com:QCDIS/NaaVRE-dev-environment.git
+git clone --recurse-submodules git@github.com:QCDIS/NaaVRE-dev-integration.git
 ```
 
 If you get an error:
