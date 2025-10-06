@@ -18,13 +18,13 @@ OS support:
 To integrate the different components of NaaVRE, we use Git submodules:
 
 ```shell
-git clone --recurse-submodules git@github.com:QCDIS/NaaVRE-dev-integration.git
+git clone --recurse-submodules git@github.com:NaaVRE/NaaVRE-dev-integration.git
 ```
 
 If you get an error:
 
 ```
-Cloning into 'NaaVRE-dev-environment'...
+Cloning into 'NaaVRE-dev-integration.git'...
 git@github.com: Permission denied (publickey).
 fatal: Could not read from remote repository.
 
@@ -43,7 +43,7 @@ Install Conda from these instructions: https://docs.conda.io/projects/conda/en/l
 Setup a new conda environment and install dependencies:
 
 ```shell
-cd NaaVRE-dev-environment
+cd NaaVRE-dev-integration.git
 conda env create -n naavre-dev --file environment.yml
 conda activate naavre-dev
 ```
