@@ -19,6 +19,12 @@ hub:
               spawner.environment['OAUTH_REFRESH_TOKEN'] = auth_state.get('refresh_token')
       c.JupyterHub.authenticator_class = GenericEnvOAuthenticator
       c.JupyterHub.spawner_class = 'datamountspawner.KubeSpawner'
+      
+      c.KubeSpawner.data_mount_config = """
+      c.DataMount.remember_enabled = True # default is False
+      c.DataMount.remember_file = "/home/jovyan/.jupyter/datamounts/mounts.json" # update if your persistent storage is at $HOME/work
+      c.DataMount.remember_default = True # configure whether the checkbox should be enabled by default. Default: False
+      """
   config:
     Authenticator:
       enable_auth_state: true

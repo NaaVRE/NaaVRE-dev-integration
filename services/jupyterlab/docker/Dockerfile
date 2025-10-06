@@ -59,6 +59,7 @@ COPY --chown=jovyan ./extensions/NaaVRE-containerizer-jupyterlab/ ./extensions/N
 RUN pip install ./extensions/NaaVRE-containerizer-jupyterlab/
 COPY --chown=jovyan ./extensions/NaaVRE-workflow-jupyterlab/ ./extensions/NaaVRE-workflow-jupyterlab/
 RUN pip install ./extensions/NaaVRE-workflow-jupyterlab/
+RUN pip install jupyterlab_data_mount==v1.1.0
 
 # Copy configuration
 COPY --chown=jovyan ./settings/ /opt/conda/share/jupyter/lab/settings/
