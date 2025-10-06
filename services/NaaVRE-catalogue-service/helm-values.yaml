@@ -16,3 +16,17 @@ conf:
     secret_key: fake-secret-key
     superuser_username: admin
     superuser_password: admin
+
+global:
+  security:
+    allowInsecureImages: true
+
+postgresql:
+  image:
+    repository: bitnamilegacy/postgresql
+  volumePermissions:
+    image:
+      repository: bitnamilegacy/os-shell
+  metrics:
+    image:
+      repository: bitnamilegacy/postgres-exporter

@@ -1,3 +1,10 @@
+image:
+  repository: bitnamilegacy/keycloak
+
+global:
+  security:
+    allowInsecureImages: true
+
 httpRelativePath: '/auth/'
 
 auth:
@@ -33,9 +40,19 @@ postgresql:
   readReplicas:
     podAnnotations:
       backup.velero.io/backup-volumes: pvc-volume,emptydir-volume
+  image:
+    repository: bitnamilegacy/postgresql
+  volumePermissions:
+    image:
+      repository: bitnamilegacy/bitnami-shell
+  metrics:
+    image:
+      repository: bitnamilegacy/postgres-exporter
 
 
 keycloakConfigCli:
+  image:
+    repository: bitnamilegacy/keycloak-config-cli
   enabled: true
   configuration:
     realm-configuration.yaml: |
@@ -138,3 +155,8 @@ keycloakConfigCli:
             - profile
             - roles
             - email
+      
+
+
+
+
