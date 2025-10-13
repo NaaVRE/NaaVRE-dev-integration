@@ -16,3 +16,6 @@
 [submodule "services/NaaVRE-workflow-service/NaaVRE-workflow-service"]
 	path = services/NaaVRE-workflow-service/NaaVRE-workflow-service
 	url = git@github.com:NaaVRE/NaaVRE-workflow-service.git
+[submodule "services/NaaVRE-PaaS-frontend/NaaVRE-PaaS-frontend"]
+	path = services/NaaVRE-PaaS-frontend/NaaVRE-PaaS-frontend
+	url = git@github.com:NaaVRE/NaaVRE-PaaS-frontend.git

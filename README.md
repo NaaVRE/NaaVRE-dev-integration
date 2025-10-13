@@ -43,8 +43,8 @@ Install Conda from these instructions: https://docs.conda.io/projects/conda/en/l
 Setup a new conda environment and install dependencies:
 
 ```shell
-cd NaaVRE-dev-integration.git
-conda env create -n naavre-dev --file environment.yml
+cd NaaVRE-dev-integration
+conda env create -n naavre-dev --file environment.yaml
 conda activate naavre-dev
 ```
 
