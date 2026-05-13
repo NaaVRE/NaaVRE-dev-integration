@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This repo is archived. For running NaaVRE locally, use [NaaVRE-helm](https://github.com/NaaVRE/NaaVRE-helm) on Minikube. 
+
 # NaaVRE-dev-integration
 
 Integrated development environment for NaaVRE.
